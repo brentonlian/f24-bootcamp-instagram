@@ -1,15 +1,9 @@
-//
-//  PostView.swift
-//  f24-bootcamp-instagram
-//
-//  Created by Brenton on 9/24/24.
-//
-
 import SwiftUI
 
-
-
 struct PostView: View {
+    @State var isLiked = false
+    @State var isSaved = false
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
@@ -25,22 +19,63 @@ struct PostView: View {
                 Image(systemName: "ellipsis")
             }
             .padding(.horizontal, 8)
+            
             Image("bamboo")
                 .resizable()
                 .scaledToFit()
+            
             HStack(spacing: 16) {
-                Image(systemName: "heart")
+                Button(action: {
+                    if(isLiked == true){
+                        isLiked = false;
+                    }
+                    else{
+                        isLiked = true
+                    }
+                }, label: {
+                    if(isLiked == true){
+                        Image(systemName: "heart.fill")
+                            .foregroundColor(.red)
+                    }
+                    else{
+                        Image(systemName: "heart").foregroundColor(.black)
+                    }
+                })
+                
                 Image(systemName: "message")
                 Image(systemName: "paperplane")
                 Spacer()
-                Image(systemName: "bookmark")
+                Button(action: {
+                    if(isSaved == true){
+                        isSaved = false;
+                    }
+                    else{
+                        isSaved = true
+                    }
+                }, label: {
+                    if(isSaved == true){
+                        Image(systemName: "bookmark.fill")
+                            .foregroundColor(.black)
+                    }
+                    else{
+                        Image(systemName: "bookmark").foregroundColor(.black)
+                    }
+                })
             }
             .font(.title2)
-            Text("100,000 likes")
-                .font(.footnote)
-                .fontWeight(.semibold)
+            if(isLiked == true){
+                Text("100,001 likes")
+                    .font(.footnote)
+                    .fontWeight(.semibold)
+            }
+            else{
+                Text("100,000 likes")
+                    .font(.footnote)
+                    .fontWeight(.semibold)
+            }
             Text("My first project in Swift!")
                 .font(.footnote)
+            
             Text("September 19th")
                 .font(.caption)
                 .foregroundStyle(.secondary)
